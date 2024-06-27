@@ -41,13 +41,14 @@ func (e *Event) Save() error {
 	return nil
 }
 
-func GetAllEvents() []Event {
+func GetAll() ([]Event, error) {
 	queryGetAllEvents := `
 	SELECT * FROM events
 	`
 	rows, err := db.DB.Query(queryGetAllEvents)
 	if err != nil {
-		panic(err)
+		return nil, err
+
 	}
 	defer rows.Close()
 
@@ -57,11 +58,11 @@ func GetAllEvents() []Event {
 		var e Event
 		err := rows.Scan(&e.ID, &e.Name, &e.Description, &e.Location, &e.DateTime, &e.UserID)
 		if err != nil {
-			panic(err)
+			return nil, err
 		}
 		events = append(events, e)
 	}
 
-	return events
+	return events, nil
 
 }
