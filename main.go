@@ -46,9 +46,7 @@ func main() {
 
 	server.Use(gin.Recovery())
 
-	server.GET("/events", routes.GetEvents)
-	server.GET("/events/:id", routes.GetEvent)
-	server.POST("/events", routes.CreateEvent)
+	routes.RegisterRoutes(server)
 
 	server.Run(":8080")
 

@@ -12,7 +12,7 @@ import (
 
 var red = ansi.ColorFunc("red")
 
-func GetEvents(c *gin.Context) {
+func getEvents(c *gin.Context) {
 
 	events, err := models.GetAll()
 	if err != nil {
@@ -27,7 +27,7 @@ func GetEvents(c *gin.Context) {
 	})
 }
 
-func GetEvent(c *gin.Context) {
+func getEvent(c *gin.Context) {
 	// red := ansi.ColorFunc("red")
 	id := c.Param("id")
 	newId, err := strconv.ParseInt(id, 10, 64)
@@ -50,7 +50,7 @@ func GetEvent(c *gin.Context) {
 	})
 }
 
-func CreateEvent(context *gin.Context) {
+func createEvent(context *gin.Context) {
 	var event models.Event
 	err := context.ShouldBindJSON(&event)
 	if err != nil {
@@ -70,6 +70,38 @@ func CreateEvent(context *gin.Context) {
 	context.JSON(http.StatusCreated, gin.H{
 		"status":  http.StatusCreated,
 		"message": "Event created successfully!",
+		"event":   event,
+	})
+}
+
+func updateEvent(context *gin.Context) {
+	id := context.Param("id")
+	newId, err := strconv.ParseInt(id, 10, 64)
+	if err != nil {
+		log.Println(red(err.Error()))
+		context.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID"})
+		return
+	}
+
+	var event models.Event
+	err = context.ShouldBindJSON(&event)
+	if err != nil {
+		log.Println(red(err.Error()))
+		context.JSON(http.StatusBadRequest, gin.H{"error": "Invalid data"})
+		return
+	}
+
+	event.ID = newId
+	err = event.Update()
+	if err != nil {
+		log.Println(red(err.Error()))
+		context.JSON(http.StatusInternalServerError, gin.H{"error": "Error updating event"})
+		return
+	}
+
+	context.JSON(http.StatusOK, gin.H{
+		"status":  http.StatusOK,
+		"message": "Event updated successfully!",
 		"event":   event,
 	})
 }
