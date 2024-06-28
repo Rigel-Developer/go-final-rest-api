@@ -8,8 +8,12 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "name": "My Event",
+  "name": 150.45,
   "description": "This is my event",
   "dateTime": "2024-01-01T15:30:00.000Z",
   "location": "My Location"
 }
+
+### Get one event
+GET http://localhost:8080/events/s2
+Accept: application/json

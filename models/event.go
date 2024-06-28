@@ -66,3 +66,15 @@ func GetAll() ([]Event, error) {
 	return events, nil
 
 }
+
+func GetOne(id int64) (Event, error) {
+	queryGetOneEvent := `
+	SELECT * FROM events WHERE id = ?
+	`
+	var e Event
+	err := db.DB.QueryRow(queryGetOneEvent, id).Scan(&e.ID, &e.Name, &e.Description, &e.Location, &e.DateTime, &e.UserID)
+	if err != nil {
+		return e, err
+	}
+	return e, nil
+}
