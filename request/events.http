@@ -29,3 +29,8 @@ Accept: application/json
   "dateTime": "2024-01-01T15:30:00.000Z",
   "location": "My Location"
 }
+
+### Delete an event
+DELETE http://localhost:8080/events/1
+Accept: application/json
+```
