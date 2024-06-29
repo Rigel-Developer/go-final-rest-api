@@ -1,0 +1,9 @@
+### save user
+POST http://localhost:8080/signup
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "email": "email2",
+    "password": "password2"
+}

@@ -10,7 +10,7 @@ var DB *sql.DB
 
 func InitDatabase() {
 	var err error
-	DB, err = sql.Open("sqlite3", "./database.db")
+	DB, err = sql.Open("sqlite3", "./api.db?_foreign_keys=1")
 	if err != nil {
 		panic(err)
 	}
@@ -22,6 +22,18 @@ func InitDatabase() {
 }
 
 func createTables() {
+	createUserTableSQL := `
+	CREATE TABLE IF NOT EXISTS users (
+		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		email TEXT NOT NULL UNIQUE,
+		password TEXT NOT NULL
+	);
+	`
+
+	_, err := DB.Exec(createUserTableSQL)
+	if err != nil {
+		panic(err)
+	}
 
 	createEventTableSQL := `
 	CREATE TABLE IF NOT EXISTS events (
@@ -30,11 +42,12 @@ func createTables() {
 		description TEXT NOT NULL,
 		location TEXT NOT NULL,
 		date_time DATETIME NOT NULL,
-		user_id INTEGER NOT NULL
+		user_id INTEGER,
+		FOREIGN KEY(user_id) REFERENCES users(id)
 	);
 	`
 
-	_, err := DB.Exec(createEventTableSQL)
+	_, err = DB.Exec(createEventTableSQL)
 	if err != nil {
 		panic(err)
 	}
