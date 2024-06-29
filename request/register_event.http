@@ -1,0 +1,16 @@
+### Register in event
+POST http://localhost:8080/events/3/register
+Content-Type: application/json
+Accept: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsIiwiZXhwIjoxNzE5NzIyNzM3LCJ1c2VySWQiOjF9.fH-eRPHaejb7tsssP1bxbcP1Op3AIIeh6ipc7Af-dW4
+
+
+### Unregister from event
+DELETE http://localhost:8080/events/2/register
+Accept: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsIiwiZXhwIjoxNzE5NzIyNzM3LCJ1c2VySWQiOjF9.fH-eRPHaejb7tsssP1bxbcP1Op3AIIeh6ipc7Af-dW4
+
+### Get all events
+GET http://localhost:8080/events/registered
+Accept: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsIiwiZXhwIjoxNzE5NzIyNzM3LCJ1c2VySWQiOjF9.fH-eRPHaejb7tsssP1bxbcP1Op3AIIeh6ipc7Af-dW4

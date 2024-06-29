@@ -51,6 +51,7 @@ func getEvent(c *gin.Context) {
 }
 
 func createEvent(context *gin.Context) {
+	userIdToken := context.GetInt64("userId")
 	var event models.Event
 	err := context.ShouldBindJSON(&event)
 	if err != nil {
@@ -58,7 +59,7 @@ func createEvent(context *gin.Context) {
 		context.JSON(http.StatusBadRequest, gin.H{"error": "Invalid data"})
 		return
 	}
-	event.UserID = 1
+	event.UserID = userIdToken
 
 	err = event.Save()
 	if err != nil {
@@ -75,11 +76,24 @@ func createEvent(context *gin.Context) {
 }
 
 func updateEvent(context *gin.Context) {
+	userIdToken := context.GetInt64("userId")
 	id := context.Param("id")
 	newId, err := strconv.ParseInt(id, 10, 64)
 	if err != nil {
 		log.Println(red(err.Error()))
 		context.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID"})
+		return
+	}
+
+	e, err := models.GetOne(newId)
+	if err != nil {
+		log.Println(red(err.Error()))
+		context.JSON(http.StatusInternalServerError, gin.H{"error": "Error getting event"})
+		return
+	}
+
+	if e.UserID != userIdToken {
+		context.JSON(http.StatusForbidden, gin.H{"error": "You are not allowed to update this event"})
 		return
 	}
 
@@ -107,6 +121,7 @@ func updateEvent(context *gin.Context) {
 }
 
 func deleteEvent(context *gin.Context) {
+	userIdToken := context.GetInt64("userId")
 	id := context.Param("id")
 	newId, err := strconv.ParseInt(id, 10, 64)
 	if err != nil {
@@ -119,6 +134,11 @@ func deleteEvent(context *gin.Context) {
 	if err != nil {
 		log.Println(red(err.Error()))
 		context.JSON(http.StatusInternalServerError, gin.H{"error": "Error getting event"})
+		return
+	}
+
+	if event.UserID != userIdToken {
+		context.JSON(http.StatusForbidden, gin.H{"error": "You are not allowed to update this event"})
 		return
 	}
 

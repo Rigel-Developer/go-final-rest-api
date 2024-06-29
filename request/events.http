@@ -6,9 +6,10 @@ Accept: application/json
 POST http://localhost:8080/events
 Content-Type: application/json
 Accept: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsIiwiZXhwIjoxNzE5NzIyNzM3LCJ1c2VySWQiOjF9.fH-eRPHaejb7tsssP1bxbcP1Op3AIIeh6ipc7Af-dW4
 
 {
-  "name": 150.45,
+  "name": "Third Event",
   "description": "This is my event",
   "dateTime": "2024-01-01T15:30:00.000Z",
   "location": "My Location"
@@ -22,9 +23,10 @@ Accept: application/json
 PUT http://localhost:8080/events/2
 Content-Type: application/json
 Accept: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsIiwiZXhwIjoxNzE5NzIyNzM3LCJ1c2VySWQiOjF9.fH-eRPHaejb7tsssP1bxbcP1Op3AIIeh6ipc7Af-dW4
 
 {
-  "name": "Event 2",
+  "name": "Event 2 UPDATED!!!!!",
   "description": "This is my event updated",
   "dateTime": "2024-01-01T15:30:00.000Z",
   "location": "My Location"
@@ -33,4 +35,5 @@ Accept: application/json
 ### Delete an event
 DELETE http://localhost:8080/events/1
 Accept: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsIiwiZXhwIjoxNzE5NzIyNzM3LCJ1c2VySWQiOjF9.fH-eRPHaejb7tsssP1bxbcP1Op3AIIeh6ipc7Af-dW4
 ```
