@@ -4,6 +4,15 @@ Content-Type: application/json
 
 {
     "name": "John Doe",
-    "email": "email2",
-    "password": "password2"
+    "email": "email3",
+    "password": "password3"
+}
+
+### signin
+POST http://localhost:8080/signin
+Content-Type: application/json
+
+{
+    "email": "email3",
+    "password": "password3"
 }
